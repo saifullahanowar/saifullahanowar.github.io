@@ -1,14 +1,8 @@
-export interface ExperienceRole {
-  title: string;
-  period: string;
-  responsibilities: string[];
-}
-
 export interface ExperienceCompany {
   company: string;
   group: string;
   about: string;
-  roles: ExperienceRole[];
+  role: string;
 }
 
 export interface EducationItem {
@@ -53,27 +47,7 @@ export const profile = {
       group: 'Excellent Ceramics Group / Halim Group',
       about:
         'One of Bangladesh’s largest manufacturers of sanitary ware and tiles, operating under premium brands like Excellent and Marcopolo.',
-      roles: [
-        {
-          title: 'Executive - Accounts & Finance',
-          period: '01-07-2025 – 01-01-2026',
-          responsibilities: [
-            'Check & Verify Daily Accounts Activities.',
-            'Bank Reconciliation.',
-            'Provide assistance in Preparing Cost Of Goods Sold (COGS).',
-          ],
-        },
-        {
-          title: 'MTO - Accounts & Finance',
-          period: '01-10-2024 – 30-06-2025',
-          responsibilities: [
-            'Daily Sales Invoice & Receivable Entry.',
-            'Raw Material Consumption & Finished Good Production Entry.',
-            'Supplier Payment & Monthly Dealer Commission Preparation.',
-            'Marketing TA/DA report.',
-          ],
-        },
-      ],
+      role: 'Executive - Accounts & Finance',
     },
   ] satisfies ExperienceCompany[],
 
@@ -90,14 +64,6 @@ export const profile = {
     {
       degree: 'BBA',
       field: 'Accounting',
-    },
-    {
-      degree: 'HSC',
-      field: 'Business Studies',
-    },
-    {
-      degree: 'SSC',
-      field: 'Science',
     },
   ] satisfies EducationItem[],
 
