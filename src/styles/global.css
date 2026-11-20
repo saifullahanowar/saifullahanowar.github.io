@@ -1,0 +1,599 @@
+@import "tailwindcss";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ==========================================================================
+   Color System — Editorial Finance Palette (WCAG AA+ in Light & Dark)
+   Follows modern-web-guidance `dark-mode` & `dark-mode-toggle`:
+   - Root stays `color-scheme: light dark` by default
+   - `<meta name="color-scheme">` is mapped back to `:root` via `:has()`
+   - `light-dark()` used with full `@supports not` fallback for older browsers
+   ========================================================================== */
+:root {
+  color-scheme: light dark;
+
+  /* Raw palette tokens */
+  --bg-light: #faf9f6;
+  --bg-dark: #0b1120;
+
+  --surface-light: #ffffff;
+  --surface-dark: #111a2e;
+
+  --surface-subtle-light: #f3f1ec;
+  --surface-subtle-dark: #17233b;
+
+  --border-light: #e2dfd7;
+  --border-dark: #25334d;
+
+  --border-strong-light: #c8c3b8;
+  --border-strong-dark: #384a6b;
+
+  --text-light: #111827;
+  --text-dark: #f8fafc;
+
+  --text-muted-light: #4b5563;
+  --text-muted-dark: #cbd5e1;
+
+  --text-subtle-light: #5c6675;
+  --text-subtle-dark: #94a3b8;
+
+  --accent-light: #1b3b6f;
+  --accent-dark: #7aa7ff;
+
+  --accent-hover-light: #12294f;
+  --accent-hover-dark: #9ec0ff;
+
+  --accent-soft-light: #eaf0fa;
+  --accent-soft-dark: #172848;
+
+  --accent-contrast-light: #ffffff;
+  --accent-contrast-dark: #0b1120;
+
+  --gold-light: #7c531e;
+  --gold-dark: #e2be78;
+
+  --gold-rule-light: #b68a46;
+  --gold-rule-dark: #c8a25f;
+
+  --shadow-sm-light: 0 1px 2px rgba(17, 24, 39, 0.06);
+  --shadow-sm-dark: 0 1px 2px rgba(0, 0, 0, 0.35);
+
+  --shadow-md-light: 0 10px 30px -12px rgba(17, 24, 39, 0.12);
+  --shadow-md-dark: 0 12px 32px -12px rgba(0, 0, 0, 0.55);
+
+  /* Semantic tokens using light-dark() */
+  --bg: light-dark(var(--bg-light), var(--bg-dark));
+  --surface: light-dark(var(--surface-light), var(--surface-dark));
+  --surface-subtle: light-dark(var(--surface-subtle-light), var(--surface-subtle-dark));
+  --border: light-dark(var(--border-light), var(--border-dark));
+  --border-strong: light-dark(var(--border-strong-light), var(--border-strong-dark));
+  --text: light-dark(var(--text-light), var(--text-dark));
+  --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+  --text-subtle: light-dark(var(--text-subtle-light), var(--text-subtle-dark));
+  --accent: light-dark(var(--accent-light), var(--accent-dark));
+  --accent-hover: light-dark(var(--accent-hover-light), var(--accent-hover-dark));
+  --accent-soft: light-dark(var(--accent-soft-light), var(--accent-soft-dark));
+  --accent-contrast: light-dark(var(--accent-contrast-light), var(--accent-contrast-dark));
+  --gold: light-dark(var(--gold-light), var(--gold-dark));
+  --gold-rule: light-dark(var(--gold-rule-light), var(--gold-rule-dark));
+  --shadow-sm: light-dark(var(--shadow-sm-light), var(--shadow-sm-dark));
+  --shadow-md: light-dark(var(--shadow-md-light), var(--shadow-md-dark));
+
+  accent-color: var(--accent);
+
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+  }
+
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+}
+
+/* Fallback for browsers without light-dark() support */
+@supports not (color: light-dark(white, black)) {
+  :root {
+    --bg: var(--bg-light);
+    --surface: var(--surface-light);
+    --surface-subtle: var(--surface-subtle-light);
+    --border: var(--border-light);
+    --border-strong: var(--border-strong-light);
+    --text: var(--text-light);
+    --text-muted: var(--text-muted-light);
+    --text-subtle: var(--text-subtle-light);
+    --accent: var(--accent-light);
+    --accent-hover: var(--accent-hover-light);
+    --accent-soft: var(--accent-soft-light);
+    --accent-contrast: var(--accent-contrast-light);
+    --gold: var(--gold-light);
+    --gold-rule: var(--gold-rule-light);
+    --shadow-sm: var(--shadow-sm-light);
+    --shadow-md: var(--shadow-md-light);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) {
+      --bg: var(--bg-dark);
+      --surface: var(--surface-dark);
+      --surface-subtle: var(--surface-subtle-dark);
+      --border: var(--border-dark);
+      --border-strong: var(--border-strong-dark);
+      --text: var(--text-dark);
+      --text-muted: var(--text-muted-dark);
+      --text-subtle: var(--text-subtle-dark);
+      --accent: var(--accent-dark);
+      --accent-hover: var(--accent-hover-dark);
+      --accent-soft: var(--accent-soft-dark);
+      --accent-contrast: var(--accent-contrast-dark);
+      --gold: var(--gold-dark);
+      --gold-rule: var(--gold-rule-dark);
+      --shadow-sm: var(--shadow-sm-dark);
+      --shadow-md: var(--shadow-md-dark);
+    }
+  }
+
+  :root:has(> head > meta[name="color-scheme"][content="dark"]) {
+    --bg: var(--bg-dark);
+    --surface: var(--surface-dark);
+    --surface-subtle: var(--surface-subtle-dark);
+    --border: var(--border-dark);
+    --border-strong: var(--border-strong-dark);
+    --text: var(--text-dark);
+    --text-muted: var(--text-muted-dark);
+    --text-subtle: var(--text-subtle-dark);
+    --accent: var(--accent-dark);
+    --accent-hover: var(--accent-hover-dark);
+    --accent-soft: var(--accent-soft-dark);
+    --accent-contrast: var(--accent-contrast-dark);
+    --gold: var(--gold-dark);
+    --gold-rule: var(--gold-rule-dark);
+    --shadow-sm: var(--shadow-sm-dark);
+    --shadow-md: var(--shadow-md-dark);
+  }
+}
+
+/* ==========================================================================
+   Base Document & Typography
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-block-size: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  color: var(--text);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Visible Keyboard Focus Rings */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  inset-block-start: -100%;
+  inset-inline-start: 1rem;
+  z-index: 200;
+  padding: 0.65rem 1.1rem;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.skip-link:focus {
+  inset-block-start: 0.75rem;
+}
+
+/* Layout Container */
+.container-editorial {
+  inline-size: min(100% - 2.5rem, 70rem);
+  margin-inline: auto;
+}
+
+/* Section Eyebrow & Editorial Surfaces */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  inline-size: 1.5rem;
+  block-size: 1.5px;
+  background-color: var(--gold-rule);
+}
+
+.card-editorial {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.72rem 1.35rem;
+  border-radius: 8px;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.72rem 1.35rem;
+  border-radius: 8px;
+  background-color: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  background-color: var(--surface-subtle);
+}
+
+/* ==========================================================================
+   Site Header & Responsive Popover Navigation (`navbar` guide)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  background-color: var(--bg);
+  border-block-end: 1px solid var(--border);
+}
+
+.site-header.is-measuring * {
+  transition: none !important;
+}
+
+.header-inner {
+  inline-size: min(100% - 2.5rem, 70rem);
+  margin-inline: auto;
+  min-block-size: 4.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.header-inner > * {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.logo-monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.1rem;
+  block-size: 2.1rem;
+  border-radius: 7px;
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.logo-name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+}
+
+.menu-button {
+  anchor-name: --menu-button;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.48rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background-color: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  border-color: var(--accent);
+}
+
+/* Collapsed popover navigation (default when narrow or without JS) */
+.site-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  position: fixed;
+  inset: auto;
+  /* Fallback offset for browsers without CSS Anchor Positioning */
+  inset-block-start: 4.5rem;
+  inset-block-start: anchor(--menu-button bottom);
+  inset-inline-end: 1.25rem;
+  inline-size: min(84dvw, 17rem);
+  max-inline-size: calc(100dvw - 2.5rem);
+  block-size: fit-content;
+  max-block-size: calc(100dvh - 6rem);
+  margin-block-start: 0.5rem;
+  overflow: auto;
+  background-color: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.site-menu[popover]:not(:is(:popover-open, .\:popover-open)) {
+  display: none;
+}
+
+.site-menu[popover]:is(:popover-open, .\:popover-open) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.site-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-inline-start: 3px solid transparent;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.site-menu a:hover {
+  color: var(--text);
+  background-color: var(--surface-subtle);
+}
+
+/* WCAG 1.4.1: Current page uses border + font weight + background, not color alone */
+.site-menu a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 700;
+  background-color: var(--accent-soft);
+  border-inline-start-color: var(--accent);
+}
+
+/* Wide inline navigation */
+.site-header.is-wide .menu-button {
+  display: none;
+}
+
+.site-header.is-wide .site-menu {
+  position: static;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+  inline-size: auto;
+  max-inline-size: none;
+  block-size: auto;
+  max-block-size: none;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-header.is-wide .site-menu::backdrop {
+  display: none;
+}
+
+.site-header.is-wide .site-menu a {
+  padding: 0.45rem 0.8rem;
+  border-inline-start: 0;
+  border-block-end: 2px solid transparent;
+  border-radius: 6px 6px 0 0;
+}
+
+.site-header.is-wide .site-menu a[aria-current="page"] {
+  background-color: transparent;
+  border-block-end-color: var(--accent);
+}
+
+/* ==========================================================================
+   Theme Toggle Button — Pure CSS Branching for Active Option
+   ========================================================================== */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.35rem;
+  block-size: 2.35rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  background-color: var(--surface-subtle);
+}
+
+.theme-toggle .theme-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Default (Light rendered): show Moon (Switch to dark), hide Sun */
+.theme-toggle .theme-to-light {
+  display: none;
+}
+
+/* System dark (when not forced to light) */
+@media (prefers-color-scheme: dark) {
+  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-toggle .theme-to-dark {
+    display: none;
+  }
+
+  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-toggle .theme-to-light {
+    display: inline-flex;
+  }
+}
+
+/* Explicit dark override */
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-toggle .theme-to-dark {
+  display: none;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-toggle .theme-to-light {
+  display: inline-flex;
+}
+
+/* Skill Meter Bars */
+.skill-track {
+  inline-size: 100%;
+  block-size: 8px;
+  border-radius: 999px;
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.skill-fill {
+  display: block;
+  block-size: 100%;
+  border-radius: 999px;
+  background-color: var(--accent);
+}
+
+/* ==========================================================================
+   Reduced Motion & Forced Colors Accessibility
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .site-menu a[aria-current="page"] {
+    outline: 2px solid Highlight;
+    border-color: Highlight;
+  }
+
+  .skill-fill {
+    background-color: Highlight;
+    forced-color-adjust: none;
+  }
+
+  .card-editorial,
+  .site-menu,
+  .menu-button,
+  .theme-toggle {
+    border-color: CanvasText;
+  }
+}

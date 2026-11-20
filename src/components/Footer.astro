@@ -1,0 +1,55 @@
+---
+import { navLinks, profile } from '../data/profile';
+---
+
+<footer class="site-footer border-t border-[var(--border)] bg-[var(--surface)] mt-20">
+  <div class="container-editorial py-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    <div class="space-y-1">
+      <p class="font-serif text-base font-bold text-[var(--text)]">{profile.fullName}</p>
+      <p class="text-sm text-[var(--text-muted)]">{profile.rolesLine}</p>
+      <p class="text-xs text-[var(--text-subtle)] pt-1">
+        &copy; {new Date().getFullYear()} {profile.fullName}. All rights reserved.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-4 md:items-end">
+      <nav aria-label="Footer" class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              class="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--text-subtle)]">
+        <a
+          href={`mailto:${profile.contact.email}`}
+          class="hover:text-[var(--accent)] underline-offset-4 hover:underline"
+        >
+          {profile.contact.email}
+        </a>
+        <span aria-hidden="true">&middot;</span>
+        <a
+          href={profile.contact.website}
+          class="hover:text-[var(--accent)] underline-offset-4 hover:underline"
+        >
+          {profile.contact.websiteDisplay}
+        </a>
+        <span aria-hidden="true">&middot;</span>
+        <a
+          href={profile.contact.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-[var(--accent)] underline-offset-4 hover:underline"
+        >
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

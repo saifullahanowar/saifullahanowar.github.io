@@ -1,0 +1,147 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { profile, SITE_URL } from '../data/profile';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  pageType?: 'ProfilePage' | 'WebPage' | 'CollectionPage';
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  pageType = 'WebPage',
+} = Astro.props;
+
+const normalizedCanonicalPath =
+  canonicalPath === '/' ? '/' : canonicalPath.endsWith('/') ? canonicalPath : `${canonicalPath}/`;
+const canonicalUrl = new URL(normalizedCanonicalPath, SITE_URL).toString();
+
+// Inline data-URI favicon (keeps dist/ strictly to ONE image file: the single portrait placeholder)
+const faviconSvg = encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#1B3B6F"/><text x="32" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="700" fill="#FAF9F6">SA</text></svg>`
+);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: `${profile.fullName} — Portfolio`,
+      description: profile.summary,
+      inLanguage: 'en',
+      publisher: { '@id': `${SITE_URL}/#person` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${SITE_URL}/#person`,
+      name: profile.fullName,
+      url: `${SITE_URL}/`,
+      email: `mailto:${profile.contact.email}`,
+      jobTitle: profile.jobTitle,
+      description: profile.summary,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '167-Hatirpool',
+        addressLocality: profile.contact.city,
+        postalCode: profile.contact.postalCode,
+        addressCountry: 'BD',
+      },
+      worksFor: {
+        '@type': 'Organization',
+        name: profile.experience[0].company,
+      },
+      alumniOf: [
+        {
+          '@type': 'CollegeOrUniversity',
+          name: 'Govt. Bangla College, Dhaka (Affiliated with University of Dhaka)',
+        },
+        {
+          '@type': 'EducationalOrganization',
+          name: 'Nilphamari Govt. College',
+        },
+        {
+          '@type': 'EducationalOrganization',
+          name: 'Nilphamari Govt. High School',
+        },
+      ],
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        name: profile.professionalQualification.title,
+        recognizedBy: {
+          '@type': 'Organization',
+          name: profile.professionalQualification.institute,
+        },
+      },
+      knowsAbout: profile.skills.map((s) => s.name),
+      sameAs: [profile.contact.github],
+    },
+    {
+      '@type': pageType,
+      '@id': `${canonicalUrl}#webpage`,
+      url: canonicalUrl,
+      name: title,
+      description,
+      isPartOf: { '@id': `${SITE_URL}/#website` },
+      about: { '@id': `${SITE_URL}/#person` },
+      mainEntity: { '@id': `${SITE_URL}/#person` },
+      inLanguage: 'en',
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      try {
+        var s = localStorage.getItem('color-scheme');
+        if (s === 'light' || s === 'dark') {
+          document.querySelector('meta[name="color-scheme"]').content = s;
+        }
+      } catch (e) {}
+    </script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={profile.fullName} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href={`data:image/svg+xml,${faviconSvg}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={pageType === 'ProfilePage' ? 'profile' : 'website'} />
+    <meta property="og:site_name" content={`${profile.fullName} — Portfolio`} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <Header currentPath={Astro.url.pathname} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

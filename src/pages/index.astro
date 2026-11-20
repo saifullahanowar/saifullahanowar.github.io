@@ -1,0 +1,447 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/profile';
+
+const featuredSkills = profile.skills.filter((skill) => skill.featuredOnHome);
+const cmaPercent = Math.round(
+  (profile.professionalQualification.completedMarks /
+    profile.professionalQualification.totalMarks) *
+    100
+);
+---
+
+<BaseLayout
+  title={`${profile.fullName} — Accounting, Finance & ERP Portfolio`}
+  description="Portfolio of Saifullah Anowar — Accounts & Finance Executive, ICMAB CMA candidate, MBA in Accounting, and ERPNext & Tally Prime practitioner based in Dhaka, Bangladesh."
+  canonicalPath="/"
+  pageType="ProfilePage"
+>
+  <!-- Hero Section -->
+  <section class="border-b border-[var(--border)] bg-[var(--surface)]">
+    <div class="container-editorial py-14 md:py-20">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+        <div class="space-y-6 max-w-2xl">
+          <p class="eyebrow">{profile.rolesLine}</p>
+
+          <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-[var(--text)] leading-[1.12]">
+            Crafting Excellence in{' '}
+            <span class="text-[var(--accent)]">Accounting &amp; Tech</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-[var(--text-muted)] leading-relaxed">
+            I am <strong class="font-semibold text-[var(--text)]">{profile.fullName}</strong>, an
+            Accounts &amp; Finance professional and ICMAB CMA candidate combining hands-on financial
+            operations with ERP systems, Tally Prime, and Excel automation.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a href="#contact" class="btn-primary">
+              Contact Me
+              <svg
+                aria-hidden="true"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="/projects/" class="btn-secondary">View Projects</a>
+            <a
+              href="/build/"
+              class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4"
+            >
+              ATS Resume Builder
+            </a>
+          </div>
+
+          <dl class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-[var(--border)]">
+            <div>
+              <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                Location
+              </dt>
+              <dd class="mt-1 text-sm font-semibold text-[var(--text)]">Dhaka, Bangladesh</dd>
+            </div>
+            <div>
+              <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                Qualification
+              </dt>
+              <dd class="mt-1 text-sm font-semibold text-[var(--text)]">ICMAB (CMA) &middot; MBA</dd>
+            </div>
+            <div class="col-span-2 sm:col-span-1">
+              <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                Core ERP Stack
+              </dt>
+              <dd class="mt-1 text-sm font-semibold text-[var(--text)]">Tally Prime &middot; ERPNext</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!--
+          Single image on the entire site.
+          To replace this placeholder with your real headshot:
+          1. Save an optimized WebP image (320x384 or 640x768) to public/images/portrait.webp
+          2. Update `profile.portrait.src` in src/data/profile.ts and remove public/images/portrait-placeholder.svg
+        -->
+        <figure class="mx-auto lg:mx-0 shrink-0">
+          <div class="p-2 rounded-2xl border border-[var(--border)] bg-[var(--bg)] shadow-[var(--shadow-md)]">
+            <img
+              src={profile.portrait.src}
+              alt={profile.portrait.alt}
+              width={profile.portrait.width}
+              height={profile.portrait.height}
+              fetchpriority="high"
+              decoding="async"
+              class="block w-[240px] sm:w-[280px] lg:w-[300px] h-auto aspect-[5/6] rounded-xl object-cover"
+            />
+          </div>
+          <figcaption class="sr-only">
+            {profile.fullName} — {profile.rolesLine}
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Summary -->
+  <section id="summary" aria-labelledby="summary-heading" class="container-editorial pt-16 md:pt-20">
+    <div class="card-editorial p-7 sm:p-10">
+      <p class="eyebrow">Profile</p>
+      <h2 id="summary-heading" class="mt-2 text-2xl sm:text-3xl font-bold">Professional Summary</h2>
+      <p class="mt-5 text-base sm:text-[1.0625rem] leading-relaxed text-[var(--text-muted)] max-w-4xl">
+        {profile.summary}
+      </p>
+    </div>
+  </section>
+
+  <!-- Work Experience -->
+  <section id="experience" aria-labelledby="experience-heading" class="container-editorial pt-16 md:pt-20">
+    <div class="space-y-3 mb-8">
+      <p class="eyebrow">Career</p>
+      <h2 id="experience-heading" class="text-2xl sm:text-3xl font-bold">Work Experience</h2>
+    </div>
+
+    <div class="space-y-6">
+      {
+        profile.experience.map((item) => (
+          <article class="card-editorial p-7 sm:p-10">
+            <header class="pb-6 border-b border-[var(--border)]">
+              <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                <h3 class="text-xl sm:text-2xl font-bold text-[var(--accent)]">{item.company}</h3>
+                <span class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                  {item.group}
+                </span>
+              </div>
+              <p class="mt-3 text-sm sm:text-base text-[var(--text-muted)] max-w-3xl leading-relaxed">
+                {item.about}
+              </p>
+            </header>
+
+            <ol class="mt-8 space-y-8 border-s-2 border-[var(--border)] ps-6 sm:ps-8 list-none">
+              {item.roles.map((role) => (
+                <li class="relative">
+                  <span
+                    aria-hidden="true"
+                    class="absolute -start-[31px] sm:-start-[39px] top-1.5 inline-block size-3 rounded-full bg-[var(--accent)] ring-4 ring-[var(--surface)]"
+                  />
+                  <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                    <h4 class="font-serif text-lg sm:text-xl font-bold text-[var(--text)]">
+                      {role.title}
+                    </h4>
+                    <p class="tabular-nums text-xs sm:text-sm font-semibold text-[var(--gold)]">
+                      {role.period}
+                    </p>
+                  </div>
+                  <ul class="mt-3 space-y-2 text-sm sm:text-base text-[var(--text-muted)] list-disc ps-5 marker:text-[var(--accent)]">
+                    {role.responsibilities.map((task) => (
+                      <li>{task}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Professional Qualification -->
+  <section id="qualification" aria-labelledby="qual-heading" class="container-editorial pt-16 md:pt-20">
+    <div class="card-editorial p-7 sm:p-10">
+      <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div class="space-y-2 max-w-2xl">
+          <p class="eyebrow">Certification</p>
+          <h2 id="qual-heading" class="text-2xl sm:text-3xl font-bold">Professional Qualification</h2>
+          <h3 class="pt-2 text-xl font-bold text-[var(--accent)]">
+            {profile.professionalQualification.title}
+          </h3>
+          <p class="text-sm sm:text-base text-[var(--text-muted)]">
+            {profile.professionalQualification.institute}
+          </p>
+        </div>
+
+        <div class="w-full md:w-72 rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-5">
+          <div class="flex items-baseline justify-between gap-2">
+            <span class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+              Program Progress
+            </span>
+            <span class="tabular-nums text-sm font-bold text-[var(--text)]">
+              {profile.professionalQualification.completedMarks} / {profile.professionalQualification.totalMarks} marks
+            </span>
+          </div>
+          <div
+            class="skill-track mt-3"
+            role="progressbar"
+            aria-label="ICMAB CMA program completion progress"
+            aria-valuemin="0"
+            aria-valuemax={profile.professionalQualification.totalMarks}
+            aria-valuenow={profile.professionalQualification.completedMarks}
+          >
+            <span class="skill-fill" style={`width: ${cmaPercent}%`} />
+          </div>
+          <p class="mt-2.5 text-xs text-[var(--text-muted)]">
+            {profile.professionalQualification.summary}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" aria-labelledby="education-heading" class="container-editorial pt-16 md:pt-20">
+    <div class="space-y-3 mb-8">
+      <p class="eyebrow">Academic Background</p>
+      <h2 id="education-heading" class="text-2xl sm:text-3xl font-bold">Education Qualification</h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      {
+        profile.education.map((edu) => (
+          <article class="card-editorial p-6 sm:p-7 flex flex-col justify-between gap-4">
+            <div class="space-y-1.5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-xl font-bold text-[var(--accent)]">{edu.degree}</h3>
+                <span class="tabular-nums shrink-0 rounded-md border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-0.5 text-xs font-semibold text-[var(--text)]">
+                  {edu.resultLabel}: {edu.resultValue} / {edu.resultScale}
+                </span>
+              </div>
+              <p class="text-sm font-semibold text-[var(--text)]">{edu.affiliationOrBoard}</p>
+              <p class="text-sm text-[var(--text-muted)]">{edu.institution}</p>
+            </div>
+            <p class="tabular-nums pt-3 border-t border-[var(--border)] text-xs font-medium text-[var(--text-subtle)]">
+              Session: {edu.session}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Core Practical Skills -->
+  <section id="skills" aria-labelledby="skills-heading" class="container-editorial pt-16 md:pt-20">
+    <div class="card-editorial p-7 sm:p-10">
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-8">
+        <div class="space-y-2">
+          <p class="eyebrow">Capabilities</p>
+          <h2 id="skills-heading" class="text-2xl sm:text-3xl font-bold">Core Practical Skills</h2>
+        </div>
+        <a
+          href="/skills/"
+          class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent)] hover:underline underline-offset-4"
+        >
+          View all {profile.skills.length} skills
+          <svg
+            aria-hidden="true"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 gap-x-10 gap-y-6 md:grid-cols-2">
+        {
+          featuredSkills.map((skill) => (
+            <div class="space-y-2">
+              <div class="flex items-baseline justify-between gap-3">
+                <div>
+                  <h3 class="font-sans text-sm sm:text-base font-bold text-[var(--text)]">
+                    {skill.name}
+                  </h3>
+                  {skill.detail && (
+                    <p class="text-xs text-[var(--text-subtle)]">{skill.detail}</p>
+                  )}
+                </div>
+                <span class="tabular-nums text-sm font-bold text-[var(--accent)]">
+                  {skill.level}%
+                </span>
+              </div>
+              <div
+                class="skill-track"
+                role="progressbar"
+                aria-label={`${skill.name} proficiency`}
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow={skill.level}
+              >
+                <span class="skill-fill" style={`width: ${skill.level}%`} />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" aria-labelledby="contact-heading" class="container-editorial pt-16 md:pt-20">
+    <div class="card-editorial p-7 sm:p-10">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+        <div class="space-y-3">
+          <p class="eyebrow">Get in Touch</p>
+          <h2 id="contact-heading" class="text-2xl sm:text-3xl font-bold">Contact</h2>
+          <p class="text-sm sm:text-base text-[var(--text-muted)] max-w-xl leading-relaxed">
+            Available for accounting, finance operations, ERPNext / Tally Prime implementation, and
+            spreadsheet automation inquiries.
+          </p>
+
+          <dl class="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-4">
+              <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                Email
+              </dt>
+              <dd class="mt-1">
+                <a
+                  href={`mailto:${profile.contact.email}`}
+                  class="text-sm sm:text-base font-semibold text-[var(--accent)] hover:underline underline-offset-4 break-all"
+                >
+                  {profile.contact.email}
+                </a>
+              </dd>
+            </div>
+
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-4">
+              <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                Website
+              </dt>
+              <dd class="mt-1">
+                <a
+                  href={profile.contact.website}
+                  class="text-sm sm:text-base font-semibold text-[var(--accent)] hover:underline underline-offset-4 break-all"
+                >
+                  {profile.contact.websiteDisplay}
+                </a>
+              </dd>
+            </div>
+
+            <div class="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-4 sm:col-span-2">
+              <dt class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                GitHub
+              </dt>
+              <dd class="mt-1">
+                <a
+                  href={profile.contact.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-[var(--accent)] hover:underline underline-offset-4"
+                >
+                  github.com/{profile.contact.githubHandle}
+                  <svg
+                    aria-hidden="true"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside
+          aria-label="Location details"
+          class="rounded-xl border border-[var(--border)] bg-[var(--surface-subtle)] p-6 space-y-4"
+        >
+          <div class="flex items-center gap-3">
+            <span
+              aria-hidden="true"
+              class="inline-flex size-10 items-center justify-center rounded-lg bg-[var(--accent-soft)] text-[var(--accent)]"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-[var(--text-subtle)]">
+                Address
+              </p>
+              <p class="font-semibold text-sm sm:text-base text-[var(--text)]">Dhaka, Bangladesh</p>
+            </div>
+          </div>
+
+          <address class="not-italic text-sm sm:text-base text-[var(--text-muted)] leading-relaxed">
+            {profile.contact.address}
+          </address>
+
+          <a
+            href={profile.contact.mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary w-full text-sm"
+          >
+            View on Google Maps
+            <svg
+              aria-hidden="true"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </aside>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
