@@ -22,23 +22,16 @@ export const SITE_URL = 'https://saifullahanowar.github.io';
 export const profile = {
   fullName: 'Saifullah Anowar',
   initials: 'SA',
-  siteUrl: SITE_URL,
-  siteDisplay: 'saifullahanowar.github.io',
-  headline: 'Crafting Excellence in Accounting & Tech',
   rolesLine: 'Aspiring Accountant · Tech Enthusiast · ERP Expert',
   jobTitle: 'Accounts & Finance Executive',
   summary:
     'Motivated accounting student with hands-on experience in core finance & accounts operations across multiple roles. Skilled in bank reconciliation, supplier payments, dealer commission preparation, and marketing expense reporting. Proficient in daily financial entries, inventory accounting, and costing. Known for accuracy, consistency, and a proactive approach to verifying daily accounts activities, with a strong commitment to professional growth in the accounting field.',
 
-  /**
-   * Single site image: replace `src` with your real portrait (e.g. '/images/portrait.webp')
-   * and delete `public/images/portrait-placeholder.svg` when ready.
-   */
   portrait: {
-    src: '/images/portrait-placeholder.svg',
-    width: 320,
-    height: 384,
-    alt: 'Portrait placeholder for Saifullah Anowar, Accounting and ERP professional',
+    src: '/images/portrait.jpg',
+    width: 280,
+    height: 280,
+    alt: 'Portrait of Saifullah Anowar',
   },
 
   experience: [

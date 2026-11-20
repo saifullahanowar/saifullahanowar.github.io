@@ -93,12 +93,6 @@ const skillCategories: {
           </dl>
         </div>
 
-        <!--
-          Single image on the entire site.
-          To replace this placeholder with your real headshot:
-          1. Save an optimized WebP image (320x384 or 640x768) to public/images/portrait.webp
-          2. Update `profile.portrait.src` in src/data/profile.ts and remove public/images/portrait-placeholder.svg
-        -->
         <figure class="mx-auto lg:mx-0 shrink-0">
           <div class="p-2 rounded-2xl border border-[var(--border)] bg-[var(--bg)] shadow-[var(--shadow-card)]">
             <img
@@ -108,7 +102,7 @@ const skillCategories: {
               height={profile.portrait.height}
               fetchpriority="high"
               decoding="async"
-              class="block w-[220px] sm:w-[250px] lg:w-[280px] h-auto aspect-[5/6] rounded-xl object-cover"
+              class="block w-[200px] sm:w-[240px] lg:w-[272px] h-auto aspect-square rounded-xl object-cover object-top"
             />
           </div>
           <figcaption class="sr-only">
