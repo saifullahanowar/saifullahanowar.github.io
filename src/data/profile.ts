@@ -13,12 +13,7 @@ export interface ExperienceCompany {
 
 export interface EducationItem {
   degree: string;
-  institution: string;
-  affiliationOrBoard: string;
-  session: string;
-  resultLabel: 'CGPA' | 'GPA';
-  resultValue: string;
-  resultScale: string;
+  field: string;
 }
 
 export interface SkillItem {
@@ -85,47 +80,24 @@ export const profile = {
   professionalQualification: {
     title: 'ICMAB (CMA Program)',
     institute: 'Institute of Cost and Management Accountants of Bangladesh (ICMAB)',
-    completedMarks: 500,
-    totalMarks: 2000,
-    summary: 'Completed 500 marks out of 2000 marks.',
   },
 
   education: [
     {
-      degree: 'MBA (Accounting)',
-      institution: 'Govt. Bangla College, Dhaka',
-      affiliationOrBoard: 'University of Dhaka (Affiliated)',
-      session: '2021–2022',
-      resultLabel: 'CGPA',
-      resultValue: '3.06',
-      resultScale: '4.00',
+      degree: 'MBA',
+      field: 'Accounting',
     },
     {
-      degree: 'BBA (Accounting)',
-      institution: 'Govt. Bangla College, Dhaka',
-      affiliationOrBoard: 'University of Dhaka (Affiliated)',
-      session: '2017–2018',
-      resultLabel: 'CGPA',
-      resultValue: '2.82',
-      resultScale: '4.00',
+      degree: 'BBA',
+      field: 'Accounting',
     },
     {
-      degree: 'HSC (Business Studies)',
-      institution: 'Nilphamari Govt. College',
-      affiliationOrBoard: 'Dinajpur Board',
-      session: '2015–2016',
-      resultLabel: 'GPA',
-      resultValue: '3.33',
-      resultScale: '5.00',
+      degree: 'HSC',
+      field: 'Business Studies',
     },
     {
-      degree: 'SSC (Science)',
-      institution: 'Nilphamari Govt. High School',
-      affiliationOrBoard: 'Dinajpur Board',
-      session: '2013–2014',
-      resultLabel: 'GPA',
-      resultValue: '4.89',
-      resultScale: '5.00',
+      degree: 'SSC',
+      field: 'Science',
     },
   ] satisfies EducationItem[],
 
@@ -167,17 +139,8 @@ export const profile = {
   ] satisfies SkillItem[],
 
   contact: {
-    address: '167-Hatirpool, Dhaka-1205, Bangladesh',
-    city: 'Dhaka',
-    postalCode: '1205',
-    country: 'Bangladesh',
-    mapsUrl:
-      'https://www.google.com/maps/search/?api=1&query=167-Hatirpool%2C+Dhaka-1205%2C+Bangladesh',
-    email: 'info@saifit.org',
     website: SITE_URL,
     websiteDisplay: 'saifullahanowar.github.io',
-    github: 'https://github.com/saifullahanowar',
-    githubHandle: 'saifullahanowar',
   },
 } as const;
 
@@ -187,5 +150,5 @@ export const navLinks = [
   { href: '#qualification', label: 'Qualification' },
   { href: '#education', label: 'Education' },
   { href: '#skills', label: 'Skills' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#contact', label: 'Website' },
 ] as const;

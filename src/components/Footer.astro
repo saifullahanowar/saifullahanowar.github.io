@@ -26,28 +26,12 @@ import { navLinks, profile } from '../data/profile';
         }
       </nav>
 
-      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--text-subtle)]">
-        <a
-          href={`mailto:${profile.contact.email}`}
-          class="hover:text-[var(--accent)] underline-offset-4 hover:underline"
-        >
-          {profile.contact.email}
-        </a>
-        <span aria-hidden="true">&middot;</span>
+      <div class="text-xs text-[var(--text-subtle)]">
         <a
           href={profile.contact.website}
           class="hover:text-[var(--accent)] underline-offset-4 hover:underline"
         >
           {profile.contact.websiteDisplay}
-        </a>
-        <span aria-hidden="true">&middot;</span>
-        <a
-          href={profile.contact.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-[var(--accent)] underline-offset-4 hover:underline"
-        >
-          GitHub
         </a>
       </div>
     </div>
