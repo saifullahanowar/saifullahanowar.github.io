@@ -2,10 +2,10 @@
 import { navLinks, profile } from '../data/profile';
 ---
 
-<footer class="site-footer border-t border-[var(--border)] bg-[var(--surface)] mt-20">
-  <div class="container-editorial py-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-    <div class="space-y-1">
-      <p class="font-serif text-base font-bold text-[var(--text)]">{profile.fullName}</p>
+<footer class="border-t border-[var(--border)] bg-[var(--surface)] mt-16 sm:mt-24">
+  <div class="container-page py-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+    <div class="space-y-1.5">
+      <p class="font-serif text-lg font-semibold text-[var(--text)]">{profile.fullName}</p>
       <p class="text-sm text-[var(--text-muted)]">{profile.rolesLine}</p>
       <p class="text-xs text-[var(--text-subtle)] pt-1">
         &copy; {new Date().getFullYear()} {profile.fullName}. All rights reserved.
@@ -26,7 +26,7 @@ import { navLinks, profile } from '../data/profile';
         }
       </nav>
 
-      <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--text-subtle)]">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--text-subtle)]">
         <a
           href={`mailto:${profile.contact.email}`}
           class="hover:text-[var(--accent)] underline-offset-4 hover:underline"

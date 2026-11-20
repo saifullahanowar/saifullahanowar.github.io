@@ -26,18 +26,6 @@ export interface SkillItem {
   detail?: string;
   level: number;
   category: 'Accounting & ERP' | 'Spreadsheet & Systems' | 'Technical & Automation';
-  featuredOnHome?: boolean;
-}
-
-export interface ProjectItem {
-  id: 'erp' | 'web' | 'excel';
-  category: string;
-  title: string;
-  description: string;
-  features: string[];
-  ctaLabel: string;
-  ctaHref: string;
-  external?: boolean;
 }
 
 export const SITE_URL = 'https://saifullahanowar.github.io';
@@ -48,7 +36,7 @@ export const profile = {
   siteUrl: SITE_URL,
   siteDisplay: 'saifullahanowar.github.io',
   headline: 'Crafting Excellence in Accounting & Tech',
-  rolesLine: 'Aspiring Accountant | Tech Enthusiast | ERP Expert',
+  rolesLine: 'Aspiring Accountant · Tech Enthusiast · ERP Expert',
   jobTitle: 'Accounts & Finance Executive',
   summary:
     'Motivated accounting student with hands-on experience in core finance & accounts operations across multiple roles. Skilled in bank reconciliation, supplier payments, dealer commission preparation, and marketing expense reporting. Proficient in daily financial entries, inventory accounting, and costing. Known for accuracy, consistency, and a proactive approach to verifying daily accounts activities, with a strong commitment to professional growth in the accounting field.',
@@ -147,93 +135,36 @@ export const profile = {
       detail: 'Full Experience',
       level: 95,
       category: 'Accounting & ERP',
-      featuredOnHome: true,
     },
     {
       name: 'ERPNext',
       detail: 'Company Setup, Chart of Accounts, Others',
       level: 85,
       category: 'Accounting & ERP',
-      featuredOnHome: true,
     },
     {
       name: 'MS Excel',
       detail: 'Pivot tables, VLOOKUP, Macros, financial dashboards',
       level: 80,
       category: 'Spreadsheet & Systems',
-      featuredOnHome: true,
     },
     {
       name: 'Operating Systems',
       level: 80,
       category: 'Spreadsheet & Systems',
-      featuredOnHome: true,
     },
     {
       name: 'Web Development',
       detail: 'HTML/CSS/JS',
       level: 75,
       category: 'Technical & Automation',
-      featuredOnHome: false,
     },
     {
       name: 'Python / Automation',
       level: 70,
       category: 'Technical & Automation',
-      featuredOnHome: false,
     },
   ] satisfies SkillItem[],
-
-  projects: [
-    {
-      id: 'erp',
-      category: 'ERP System',
-      title: 'ERPNext Company Setup',
-      description:
-        'A complete ERPNext implementation for a mid-size trading company — including full Chart of Accounts setup, inventory & stock management, purchase & sales flow configuration, and financial reporting & P&L setup.',
-      features: [
-        'Full Chart of Accounts setup',
-        'Inventory & stock management',
-        'Purchase & sales flow configuration',
-        'Financial reporting & P&L setup',
-      ],
-      ctaLabel: 'Request Demo',
-      ctaHref: 'mailto:info@saifit.org?subject=ERP%20Demo%20Request',
-      external: false,
-    },
-    {
-      id: 'web',
-      category: 'Web Development',
-      title: 'Personal Portfolio Website',
-      description:
-        'Fast, SEO-optimized static portfolio built with Astro and deployed automatically to GitHub Pages (https://saifullahanowar.github.io) with light/dark theming, responsive design, and an ATS resume builder.',
-      features: [
-        'Static Astro architecture with zero-JS default',
-        'Accessible light & dark color-scheme theming',
-        'Responsive semantic layout & technical SEO',
-        'Isolated client-side ATS Resume Builder',
-      ],
-      ctaLabel: 'View on GitHub',
-      ctaHref: 'https://github.com/saifullahanowar/saifullahanowar.github.io',
-      external: true,
-    },
-    {
-      id: 'excel',
-      category: 'Excel Automation',
-      title: 'Financial Dashboard & Reports',
-      description:
-        'An automated Excel workbook featuring dynamic pivot tables & charts, automated monthly P&L summary, conditional formatting KPIs, and one-click printable report layouts.',
-      features: [
-        'Dynamic pivot tables & charts',
-        'Automated monthly P&L summary',
-        'Conditional formatting KPIs',
-        'One-click printable report layouts',
-      ],
-      ctaLabel: 'Request Demo',
-      ctaHref: 'mailto:info@saifit.org?subject=Excel%20Demo%20Request',
-      external: false,
-    },
-  ] satisfies ProjectItem[],
 
   contact: {
     address: '167-Hatirpool, Dhaka-1205, Bangladesh',
@@ -251,8 +182,10 @@ export const profile = {
 } as const;
 
 export const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/skills/', label: 'Skills' },
-  { href: '/projects/', label: 'Projects' },
-  { href: '/build/', label: 'Resume Builder' },
+  { href: '#summary', label: 'Summary' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#qualification', label: 'Qualification' },
+  { href: '#education', label: 'Education' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#contact', label: 'Contact' },
 ] as const;
