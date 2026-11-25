@@ -2,23 +2,23 @@
 import { navLinks, profile } from '../data/profile';
 ---
 
-<footer class="border-t border-[var(--border)] bg-[var(--surface)] mt-16 sm:mt-24">
-  <div class="container-page py-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-    <div class="space-y-1.5">
-      <p class="font-serif text-lg font-semibold text-[var(--text)]">{profile.fullName}</p>
-      <p class="text-sm text-[var(--text-muted)]">{profile.rolesLine}</p>
-      <p class="text-xs text-[var(--text-subtle)] pt-1">
+<footer class="border-t border-[var(--line-strong)] bg-[var(--paper-2)] mt-12 sm:mt-16">
+  <div class="container-page py-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+    <div class="space-y-1">
+      <p class="text-sm font-extrabold text-[var(--ink)]">{profile.fullName}</p>
+      <p class="text-xs text-[var(--muted)]">{profile.rolesLine}</p>
+      <p class="text-[0.7rem] text-[var(--muted-2)] pt-1">
         &copy; {new Date().getFullYear()} {profile.fullName}. All rights reserved.
       </p>
     </div>
 
-    <div class="flex flex-col gap-4 md:items-end">
-      <nav aria-label="Footer" class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+    <div class="flex flex-col gap-3 md:items-end">
+      <nav aria-label="Footer" class="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold">
         {
           navLinks.map((link) => (
             <a
               href={link.href}
-              class="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
+              class="text-[var(--ink-2)] hover:text-[var(--ink)] underline-offset-4 hover:underline"
             >
               {link.label}
             </a>
@@ -26,10 +26,10 @@ import { navLinks, profile } from '../data/profile';
         }
       </nav>
 
-      <div class="text-xs text-[var(--text-subtle)]">
+      <div>
         <a
           href={profile.contact.website}
-          class="hover:text-[var(--accent)] underline-offset-4 hover:underline"
+          class="inline-code text-xs text-[var(--ink)] hover:underline underline-offset-4"
         >
           {profile.contact.websiteDisplay}
         </a>

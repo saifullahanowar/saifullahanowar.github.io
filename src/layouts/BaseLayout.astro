@@ -12,10 +12,11 @@ interface Props {
 
 const { title, description, canonicalPath = '/' } = Astro.props;
 const canonicalUrl = new URL(canonicalPath, SITE_URL).toString();
+const ogImageUrl = new URL(profile.portrait.src, SITE_URL).toString();
+const currentEmployer = profile.experience[0]?.company;
 
-// Inline data-URI favicon (keeps dist/ strictly to ONE image file: the single portrait placeholder)
 const faviconSvg = encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#163A6B"/><text x="32" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="600" fill="#FFFFFF">SA</text></svg>`
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="3" y="3" width="58" height="58" rx="12" fill="#cfe3b2" stroke="#1d1b18" stroke-width="4"/><text x="32" y="42" text-anchor="middle" font-family="ui-monospace,monospace" font-size="26" font-weight="800" fill="#1d1b18">SA</text></svg>`
 );
 
 const structuredData = {
@@ -37,10 +38,14 @@ const structuredData = {
       url: `${SITE_URL}/`,
       jobTitle: profile.jobTitle,
       description: profile.summary,
-      worksFor: {
-        '@type': 'Organization',
-        name: profile.experience[0].company,
-      },
+      ...(currentEmployer
+        ? {
+            worksFor: {
+              '@type': 'Organization',
+              name: currentEmployer,
+            },
+          }
+        : {}),
       hasCredential: {
         '@type': 'EducationalOccupationalCredential',
         name: profile.professionalQualification.title,
@@ -71,8 +76,8 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#fbfbfa" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f4ebe0" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -87,11 +92,27 @@ const structuredData = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem('portfolio-theme');
+          if (saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch {
+          // Ignore storage errors
+        }
+      })();
+    </script>
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
